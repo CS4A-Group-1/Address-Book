@@ -8,24 +8,21 @@ public class Contact {
     private String name;
     private String phoneNumber;
     private String email;
-    private String type;
     private String city;
     private ArrayList<String> tags;
 
     //=============================
     // Constructors
 
-    public Contact(String name, String email, String phoneNumber, String type, String city) {
+    public Contact(String name, String email, String phoneNumber, String city) {
         this(name, phoneNumber);
         this.email = email;
-        this.type = type;
         this.city = city;
     }
     public Contact(String name, String phoneNumber) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = "";
-        this.type = "";
         this.city = "";
         this.tags = new ArrayList<>();
     }
@@ -58,16 +55,6 @@ public class Contact {
     }
     public void setEmail(String email) {
         this.email = email;
-    }
-    
-    //=============================
-    // Type
-
-    public String getType() {
-        return this.type;
-    }
-    public void setType(String type) {
-        this.type = type;
     }
     
     //=============================
