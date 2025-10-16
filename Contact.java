@@ -14,7 +14,7 @@ public class Contact {
     //=============================
     // Constructors
 
-    public Contact(String name, String email, String phoneNumber, String city) {
+    public Contact(String name, String phoneNumber , String email, String city) {
         this(name, phoneNumber);
         this.email = email;
         this.city = city;
