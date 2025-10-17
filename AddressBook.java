@@ -2,7 +2,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AddressBook {
-    private ArrayList<Contact> contacts = new ArrayList<>();
+    private ArrayList<Contact> contacts;
+    private ArrayList<Group> groups;
+
+    public AddressBook() {
+        contacts = new ArrayList<>();
+        groups = new ArrayList<>();
+    }
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
@@ -88,4 +94,40 @@ public class AddressBook {
             System.out.println("----------------------");
         }
     }
+    
+    // ----- GROUPS METHODS -----
+
+    //Returns false if groupname is empty/null or a group with the groupName you sent already exists
+    public boolean createGroup(String groupName) {
+        if (groupName == null || groupName.isEmpty()) return false; //groupName is empty/null
+
+        // Search groups in AddressBook if groupName already exists
+        for (Group g : groups) {
+            if (g.getGroupName().equalsIgnoreCase(groupName)) {
+                return false; //group already exists
+            }
+        }
+
+        groups.add(new Group(groupName));
+        return true; // successfully created
+    }
+
+    //Returns false if either parameters is a null ref, a group with the groupName you sent doesnt exist,
+    //or the contact reference you passed does not exist in the contacts ArrayList.
+    //Must pass a contact as a reference to a contact from the contacts ArrayList to sucessfully add a contact
+    public boolean addContactToGroup(Contact contact, String groupName) {
+        if (contact == null || groupName == null) return false; //contact or groupname is null
+        if (!contacts.contains(contact)) return false; //contact isnt a reference that exists in ArrayList<> contacts
+
+        for (Group g : groups) {
+            if (g.getGroupName().equalsIgnoreCase(groupName)) {
+                g.addContact(contact);
+                return true; //successfully added
+            }
+        }
+
+        return false; //group not found
+    }
+
 }
+
