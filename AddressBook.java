@@ -10,6 +10,120 @@ public class AddressBook {
         groups = new ArrayList<>();
     }
 
+// ========
+// ======== SEARCH FUNCTIONS ========
+public Contact searchName(String name) { //searching by Name
+        for (Contact c : contacts) {
+            if (c.getName().equalsIgnoreCase(name)) {
+                return c;
+            }
+        }
+        return null;
+    }
+
+public Contact searchPhone(String phoneNumber) { // searching by Phone #
+        for (Contact c : contacts) {
+            if (c.getPhoneNumber().equalsIgnoreCase(phoneNumber)) {
+                return c;
+            }
+        }
+        return null;
+    }
+
+public Contact searchEmail(String email) { // searching by Email
+        for (Contact c : contacts) {
+            if (c.getEmail().equalsIgnoreCase(email)) {
+                return c;
+            }
+        }
+        return null;
+    }
+
+public void displaySearch(Contact contact) {
+        if (contact == null) {
+            System.out.println("No contact found.");
+        } else {
+            System.out.println("Results: " + contact.toString());
+        }
+    }
+
+// ======== FILTER FUNCTIONS ========
+public ArrayList<Contact> filterByType(String type) { //filtering by Type
+        ArrayList<Contact> results = new ArrayList<>();
+        for (Contact c : contacts) {
+            if (c.getClass().getSimpleName().equalsIgnoreCase(type)) {
+                results.add(c);
+            }
+        }
+        return results;
+    }
+
+public ArrayList<Contact> filterByCity(String city) { //filtering by City
+        ArrayList<Contact> results = new ArrayList<>();
+        for (Contact c : contacts) {
+            if (c.getCity().equalsIgnoreCase(city)) {
+                results.add(c);
+            }
+        }
+        return results;
+    }
+
+public ArrayList<Contact> filterByTags(ArrayList<String> tags) { // filtering by Tags
+        ArrayList<Contact> results = new ArrayList<>();
+        for (Contact c : contacts) {
+            if (c.getTags().containsAll(tags)) {
+                results.add(c);
+            }
+        }
+        return results;
+    }
+
+public void displayFiltered(ArrayList<Contact> contacts) {
+        if (contacts.isEmpty()) {
+            System.out.println("No contacts matched.");
+        } else {
+            for (Contact c : contacts) {
+                System.out.println(c.toString());
+            }
+        }
+}
+
+// ======== TAG MANAGER ========
+public ArrayList<Contact> manageTags() { // adding and removing tags
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter contact name: ");
+        String name = input.nextLine();
+
+        Contact c = searchName(name);
+        if (c == null) {
+            System.out.println("Contact not found.");
+            return contacts;
+        }
+
+        System.out.println("1. Add Tag\n");
+        System.out.println("2. Remove Tag\n");
+        System.out.print("Enter choice: ");
+        int choice = input.nextInt();
+        input.nextLine();
+
+        if (choice == 1) {
+            System.out.print("Enter tag to add: ");
+            String tag = input.nextLine();
+            c.addTag(tag);
+            System.out.println("Added tag successfully.");
+        } else if (choice == 2) {
+            System.out.print("Enter tag to remove: ");
+            String tag = input.nextLine();
+            c.removeTag(tag);
+            System.out.println("Removed tag successfully");
+        } else {
+            System.out.println("Invalid input.");
+        }
+
+        return contacts;
+    }
+    // ========
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         AddressBook addressBook = new AddressBook();
@@ -128,5 +242,6 @@ public class AddressBook {
     }
 
 }
+
 
 
