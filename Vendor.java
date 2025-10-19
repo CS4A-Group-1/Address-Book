@@ -15,12 +15,12 @@ public class Vendor extends Contact {
         this.id = id;
     } 
 
-    public Vendor(String name, String phoneNumber, String industry, String id) {
-        this(name, phoneNumber, "", "", industry, id);
-    }
-
     public Vendor(String name, String phoneNumber) {
         this(name, phoneNumber, "", "", "", "");
+    }
+
+    public Vendor(String name) {
+        this(name, "", "", "", "", "");
     }
 
     //=============================

@@ -13,12 +13,12 @@ public class Emergency extends Contact {
         this.priorityLevel = priorityLevel;
     }
 
-    public Emergency(String name, String phoneNumber, int priorityLevel) {
-        this(name, phoneNumber, "", "", priorityLevel);
-    }
-
     public Emergency(String name, String phoneNumber) {
         this(name, phoneNumber, "", "", 0);
+    }
+
+    public Emergency(String name) {
+        this(name, "", "", "", 0);
     }
 
     //=============================

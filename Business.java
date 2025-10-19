@@ -13,12 +13,12 @@ public class Business extends Contact {
         this.url = url;
     }
 
-    public Business(String name, String phoneNumber, String url) {
-        this(name, phoneNumber, "", "", url);
-    }
-
     public Business(String name, String phoneNumber) {
         this(name, phoneNumber, "", "", "");
+    }
+
+    public Business(String name) {
+        this(name, "", "", "", "");
     }
 
     //=============================

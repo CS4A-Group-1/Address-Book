@@ -15,13 +15,14 @@ public class Contact {
     // Constructors
 
     public Contact(String name, String phoneNumber , String email, String city) {
-        this(name, phoneNumber);
+        this(name);
+        this.phoneNumber = phoneNumber;
         this.email = email;
         this.city = city;
     }
-    public Contact(String name, String phoneNumber) {
+    public Contact(String name) {
         this.name = name;
-        this.phoneNumber = phoneNumber;
+        this.phoneNumber = "";
         this.email = "";
         this.city = "";
         this.tags = new ArrayList<>();

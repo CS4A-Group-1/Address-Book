@@ -20,12 +20,12 @@ public class Person extends Contact {
         this.birthday = birthday;
     }
 
-    public Person(String name, String phoneNumber, String relationship, String nickname, Date birthday) {
-        this(name, phoneNumber, "", "", relationship, nickname, birthday);
-    }
-
     public Person(String name, String phoneNumber) {
         this(name, phoneNumber, "", "", "", "", new Date());
+    }
+
+    public Person(String name) {
+        this(name, "", "", "", "", "", new Date());
     }
 
     //=============================
