@@ -78,21 +78,19 @@ public class AddressBook {
         input.close();
     }
 
-    public void displayAllContacts() {
-        if (contacts.isEmpty()) {
-            System.out.println("No contacts found.\n");
-            return;
-        }
+   public void displayAllContacts() 
+   {
+    if (contacts.isEmpty()) 
+    {
+        System.out.println("No contacts found.\n");
+        return;
+    }
 
-        for (Contact c : contacts) {
-            System.out.println("Name: " + c.getName());
-            System.out.println("Phone: " + c.getPhoneNumber());
-            System.out.println("Email: " + c.getEmail());
-            System.out.println("Type: " + c.getType());
-            System.out.println("City: " + c.getCity());
-            System.out.println("Tags: " + c.getTags());
-            System.out.println("----------------------");
-        }
+    for (Contact c : contacts) 
+    {
+        System.out.println(c.toString());
+        System.out.println("----------------------");
+    }
     }
     
     // ----- GROUPS METHODS -----
@@ -130,4 +128,5 @@ public class AddressBook {
     }
 
 }
+
 
