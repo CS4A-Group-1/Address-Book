@@ -10,7 +10,41 @@ public class AddressBook {
         groups = new ArrayList<>();
     }
 
+    // -------- createContact() METHODS -------- 
+    //All methods check if name is empty/null, which is "pretty much" the only time createXContact() returns false.
 
+    public boolean createPersonContact(String name, String phone, String email, String city, String relationship, String nickname, Date birthday) {
+        if (name == null || name.isEmpty()) return false;
+
+        Contact newPerson = new Person(name, phone, email, city, relationship, nickname, birthday);
+        return contacts.add(newPerson);
+    }
+
+    public boolean createVendorContact(String name, String phone, String email, String city, String industry, String id) {
+        if (name == null || name.isEmpty()) return false;
+
+        Contact newVendor = new Vendor(name, phone, email, city, industry, id);
+        return contacts.add(newVendor);
+    }
+
+    public boolean createBusinessContact(String name, String phone, String email, String city, String url) {
+        if (name == null || name.isEmpty()) return false;
+
+        Contact newBusiness = new Business(name, phone, email, city, url);
+        return contacts.add(newBusiness);
+    }
+
+    public boolean createEmergencyContact(String name, String phone, String email, String city, int priorityLevel) {
+        if (name == null || name.isEmpty()) return false;
+
+        Contact newEmergency = new Emergency(name, phone, email, city, priorityLevel);
+        return contacts.add(newEmergency);
+    }
+
+    //getContacts method 
+    public ArrayList<Contact> getContacts(){
+        return this.contacts;
+    }
     
 // ========
 // ======== SEARCH FUNCTIONS ========
@@ -268,6 +302,7 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
     }
 
 }
+
 
 
 
