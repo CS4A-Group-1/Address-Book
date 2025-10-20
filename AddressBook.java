@@ -303,54 +303,60 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
     }
 
     public void listEmergencyContacts() {
-        System.out.println("=== Emergency Contacts ===");
+        System.out.println("Emergency Contacts");
         for (Contact c : contacts) {
             if (c instanceof Emergency) {
-                System.out.println(c);
-                System.out.println("--------------------------");
+                c.toString();
             }
         }
     }
 
     public void listVendorContacts() {
-        System.out.println("=== Vendor Contacts ===");
+        System.out.println("Vendor Contacts");
         for (Contact c : contacts) {
             if (c instanceof Vendor) {
-                System.out.println(c);
-                System.out.println("--------------------------");
+                c.toString();
             }
         }
     }
 
     public void listPersonContacts() {
-        System.out.println("=== Person Contacts ===");
+        System.out.println("Person Contacts");
         for (Contact c : contacts) {
             if (c instanceof Person) {
-                System.out.println(c);
-                System.out.println("--------------------------");
+                c.toString();
             }
         }
     }
 
     public void listBusinessContacts() {
-        System.out.println("=== Business Contacts ===");
+        System.out.println("Business Contacts");
         for (Contact c : contacts) {
             if (c instanceof Business) {
-                System.out.println(c);
-                System.out.println("--------------------------");
+                c.toString();
             }
         }
     }
 
     public void listMissing() {
-        System.out.println("=== Contacts Missing Email or Phone ===");
+        System.out.println("Contacts Missing Phone number");
+        System.out.print("\n");
         for (Contact c : contacts) {
-            boolean missingEmail = c.getEmail() == null || c.getEmail().trim().isEmpty();
             boolean missingPhone = c.getPhoneNumber() == null || c.getPhoneNumber().trim().isEmpty();
 
-            if (missingEmail || missingPhone) {
-                System.out.println(c);
-                System.out.println("--------------------------");
+            if (missingPhone) {
+                System.out.print("\n");
+                c.toString();
+            }
+        }
+        System.out.println("Contacts Missing Email");
+        System.out.print("\n");
+        for (Contact c : contacts) {
+            boolean missingEmail = c.getEmail() == null || c.getEmail().trim().isEmpty();
+
+            if (missingEmail) {
+                System.out.print("\n");
+                c.toString();
             }
         }
     }
