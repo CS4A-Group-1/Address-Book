@@ -435,7 +435,7 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
         Scanner input = new Scanner(System.in);
         int choice = 0;
         do {
-            contact.toString();
+            System.out.println(contact.toString());
             System.out.println("1. Edit Contact");
             System.out.println("2. Remove Contact");
             System.out.println("3. Back to previous menu");
@@ -460,6 +460,7 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
             } else if (choice == 2) {
                 this.contacts.remove(contact);
                 System.out.println("Removed contact successfully");
+                choice = 3;
             } else {
                 System.out.println("Invalid input.");
             } 
@@ -543,7 +544,7 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
         System.out.println("Emergency Contacts");
         for (Contact c : contacts) {
             if (c instanceof Emergency) {
-                c.toString();
+                System.out.println(c.toString());
             }
         }
     }
@@ -552,7 +553,7 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
         System.out.println("Vendor Contacts");
         for (Contact c : contacts) {
             if (c instanceof Vendor) {
-                c.toString();
+                System.out.println(c.toString());
             }
         }
     }
@@ -561,7 +562,7 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
         System.out.println("Person Contacts");
         for (Contact c : contacts) {
             if (c instanceof Person) {
-                c.toString();
+                System.out.println(c.toString());
             }
         }
     }
@@ -570,7 +571,7 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
         System.out.println("Business Contacts");
         for (Contact c : contacts) {
             if (c instanceof Business) {
-                c.toString();
+                System.out.println(c.toString());
             }
         }
     }
@@ -583,7 +584,7 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
 
             if (missingPhone) {
                 System.out.print("\n");
-                c.toString();
+                System.out.println(c.toString());
             }
         }
         System.out.println("Contacts Missing Email");
@@ -593,7 +594,7 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
 
             if (missingEmail) {
                 System.out.print("\n");
-                c.toString();
+                System.out.println(c.toString());
             }
         }
     }
