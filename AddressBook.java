@@ -162,59 +162,274 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
     // ========
 
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        AddressBook addressBook = new AddressBook();
-        int choice = 0;
+    Scanner input = new Scanner(System.in);
+    AddressBook addressBook = new AddressBook();
+    int choice = 0;
 
-        while (choice != 9) {
-            System.out.println("====== Address Book ======");
-            System.out.println("1. Add Contact");
-            System.out.println("2. Search Contact");
-            System.out.println("3. List All Contacts");
-            System.out.println("4. Filter Contacts");
-            System.out.println("5. Manage Groups");
-            System.out.println("6. Reports");
-            System.out.println("7. Exit");
-            System.out.print("Enter your choice: ");
+    while (choice != 7) {
+        // Main menu
+        System.out.println("====== Address Book ======");
+        System.out.println("1. Add Contact");
+        System.out.println("2. Search Contact");
+        System.out.println("3. List All Contacts");
+        System.out.println("4. Filter Contacts");
+        System.out.println("5. Manage Groups");
+        System.out.println("6. Reports");
+        System.out.println("7. Exit");
+        System.out.print("Enter choice: ");
 
-            choice = input.nextInt();
-            input.nextLine();
-
-            switch (choice) {
-                case 1:
-                    System.out.println("Add Contact selected.");
-                    break;
-                case 2:
-                    System.out.println("Search Contact selected.");
-                    // display menu to allow user to search by name, phone, email
-                    // eventually call displayContact() for resulting contact
-                    break;
-                case 3:
-                    addressBook.displayAllContacts();
-                    break;
-                case 4:
-                    System.out.println("Filter Contacts selected.");
-                    break;
-                case 5:
-                    System.out.println("Manage Groups selected.");
-                    break;
-                case 6:
-                    System.out.println("Reports selected.");
-                    break;
-
-                case 7:
-                    System.out.println("Exiting Address Book...");
-                    break;
-
-                default:
-                    System.out.println("Invalid choice. Try again.");
-            }
-
-            System.out.println();
+        String line = input.nextLine().trim();
+        if (line.isEmpty()) continue;
+        try {
+            choice = Integer.parseInt(line);
+        } catch (Exception e) {
+            choice = 0;
         }
 
-        input.close();
+        switch (choice) {
+
+            case 1: {
+                // Add contact by type
+                System.out.println("Type: 1 Person, 2 Business, 3 Vendor, 4 Emergency");
+                System.out.print("Enter type: ");
+                int t;
+                try {
+                    t = Integer.parseInt(input.nextLine().trim());
+                } catch (Exception e) {
+                    t = -1;
+                }
+
+                // Common fields
+                System.out.print("Name: ");
+                String name = input.nextLine().trim();
+                System.out.print("Phone: ");
+                String phone = input.nextLine().trim();
+                System.out.print("Email: ");
+                String email = input.nextLine().trim();
+                System.out.print("City: ");
+                String city = input.nextLine().trim();
+
+                boolean ok = false;
+
+                if (t == 1) {
+                    // Person extras
+                    System.out.print("Relationship: ");
+                    String rel = input.nextLine().trim();
+                    System.out.print("Nickname: ");
+                    String nick = input.nextLine().trim();
+
+                    // Birthday in mm dd yyyy, also accepts mm/dd/yyyy or mm-dd-yyyy
+                    System.out.print("Birthday mm dd yyyy: ");
+                    String b = input.nextLine().trim().replace('-', ' ').replace('/', ' ');
+                    String[] parts = b.split("\\s+");
+                    if (parts.length == 3) {
+                        try {
+                            int m = Integer.parseInt(parts[0]);
+                            int d = Integer.parseInt(parts[1]);
+                            int y = Integer.parseInt(parts[2]);
+                            Date bd = new Date(y - 1900, m - 1, d);
+                            ok = addressBook.createPersonContact(name, phone, email, city, rel, nick, bd);
+                        } catch (Exception ex) {
+                            ok = false;
+                        }
+                    } else {
+                        ok = false;
+                    }
+
+                } else if (t == 2) {
+                    // Business extras
+                    System.out.print("Website URL: ");
+                    String url = input.nextLine().trim();
+                    ok = addressBook.createBusinessContact(name, phone, email, city, url);
+
+                } else if (t == 3) {
+                    // Vendor extras
+                    System.out.print("Industry: ");
+                    String industry = input.nextLine().trim();
+                    System.out.print("Vendor ID: ");
+                    String id = input.nextLine().trim();
+                    ok = addressBook.createVendorContact(name, phone, email, city, industry, id);
+
+                } else if (t == 4) {
+                    // Emergency extras
+                    System.out.print("Priority level (int): ");
+                    int p;
+                    try {
+                        p = Integer.parseInt(input.nextLine().trim());
+                    } catch (Exception ex) {
+                        p = 0;
+                    }
+                    ok = addressBook.createEmergencyContact(name, phone, email, city, p);
+
+                } else {
+                    System.out.println("Unknown type.");
+                }
+
+                System.out.println(ok ? "Contact added." : "Add failed.");
+                break;
+            }
+
+            case 2: {
+                // Search, then choose how to proceed with the found contact
+                System.out.println("Search by: 1 Name, 2 Phone, 3 Email");
+                System.out.print("Enter search type: ");
+                int s;
+                try {
+                    s = Integer.parseInt(input.nextLine().trim());
+                } catch (Exception e) {
+                    s = -1;
+                }
+                Contact found = null;
+
+                if (s == 1) {
+                    System.out.print("Name: ");
+                    found = addressBook.searchName(input.nextLine().trim());
+                } else if (s == 2) {
+                    System.out.print("Phone: ");
+                    found = addressBook.searchPhone(input.nextLine().trim());
+                } else if (s == 3) {
+                    System.out.print("Email: ");
+                    found = addressBook.searchEmail(input.nextLine().trim());
+                } else {
+                    System.out.println("Invalid search type.");
+                }
+
+                if (found == null) {
+                    System.out.println("No contact found.");
+                } else {
+                    System.out.println();
+                    System.out.println("1. View contact");
+                    System.out.println("2. Edit or Remove");
+                    System.out.println("3. Back");
+                    System.out.print("Enter choice: ");
+                    int sub;
+                    try {
+                        sub = Integer.parseInt(input.nextLine().trim());
+                    } catch (Exception e) {
+                        sub = 0;
+                    }
+
+                    if (sub == 1) {
+                        // View only
+                        System.out.println(found.toString());
+                        System.out.print("Press Enter to continue...");
+                        input.nextLine(); // pause
+                    } else if (sub == 2) {
+                        // Open single-contact menu with edit/delete (your classmates' method)
+                        addressBook.displayContact(found);
+                    } else if (sub == 3) {
+                        // back to main
+                    } else {
+                        System.out.println("Invalid choice.");
+                    }
+                }
+                break;
+            }
+
+            case 3: {
+                // List all contacts
+                addressBook.displayAllContacts();
+                break;
+            }
+
+            case 4: {
+                // Filter menu
+                System.out.println("Filter: 1 Type, 2 City, 3 Tags");
+                System.out.print("Enter filter type: ");
+                int f;
+                try {
+                    f = Integer.parseInt(input.nextLine().trim());
+                } catch (Exception e) {
+                    f = -1;
+                }
+
+                if (f == 1) {
+                    System.out.print("Enter type Person, Business, Vendor, Emergency: ");
+                    String ty = input.nextLine().trim();
+                    addressBook.displayFiltered(addressBook.filterByType(ty));
+                } else if (f == 2) {
+                    System.out.print("City: ");
+                    String ci = input.nextLine().trim();
+                    addressBook.displayFiltered(addressBook.filterByCity(ci));
+                } else if (f == 3) {
+                    System.out.print("Enter tags separated by commas: ");
+                    String lineTags = input.nextLine().trim();
+                    ArrayList<String> tags = new ArrayList<>();
+                    if (!lineTags.isEmpty()) {
+                        for (String t2 : lineTags.split(",")) {
+                            String sTag = t2.trim();
+                            if (!sTag.isEmpty()) tags.add(sTag);
+                        }
+                    }
+                    addressBook.displayFiltered(addressBook.filterByTags(tags));
+                } else {
+                    System.out.println("Invalid filter type.");
+                }
+                break;
+            }
+
+            case 5: {
+                // Groups menu
+                System.out.println("Groups: 1 Create, 2 Add Contact, 3 Summary");
+                System.out.print("Enter group action: ");
+                int g;
+                try {
+                    g = Integer.parseInt(input.nextLine().trim());
+                } catch (Exception e) {
+                    g = -1;
+                }
+
+                if (g == 1) {
+                    System.out.print("Group name: ");
+                    String gname = input.nextLine().trim();
+                    System.out.println(addressBook.createGroup(gname) ? "Group created." : "Create failed.");
+                } else if (g == 2) {
+                    System.out.print("Contact name: ");
+                    String cname = input.nextLine().trim();
+                    Contact c = addressBook.searchName(cname);
+                    if (c == null) {
+                        System.out.println("Contact not found.");
+                        break;
+                    }
+                    System.out.print("Group name: ");
+                    String gname = input.nextLine().trim();
+                    System.out.println(addressBook.addContactToGroup(c, gname) ? "Added to group." : "Add failed.");
+                } else if (g == 3) {
+                    addressBook.groupSummary();
+                } else {
+                    System.out.println("Invalid group action.");
+                }
+                break;
+            }
+
+            case 6: {
+                // Reports
+                addressBook.displayFiltered(addressBook.filterByType("Person"));
+                addressBook.displayFiltered(addressBook.filterByType("Vendor"));
+                addressBook.listBusinessContacts();
+                addressBook.listEmergencyContacts();
+                addressBook.listMissing();
+                break;
+            }
+
+            case 7: {
+                // Exit
+                System.out.println("Exiting Address Book...");
+                break;
+            }
+
+            default: {
+                // Invalid number
+                System.out.println("Invalid choice. Try again.");
+                break;
+            }
+        }
+
+        System.out.println();
     }
+
+    input.close();
+}
 
     public void displayContact(Contact contact) {
         Scanner input = new Scanner(System.in);
@@ -385,6 +600,7 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
 
 
 }
+
 
 
 
