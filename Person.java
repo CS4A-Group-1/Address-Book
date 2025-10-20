@@ -83,7 +83,7 @@ public class Person extends Contact {
             + "City: " + this.getCity() + "\n"
             + "Tags: " + this.getTags() + "\n"
             + "Relationship: " + this.getRelationship() + "\n"
-            + "Nickname" + this.getNickname() + "\n"
+            + "Nickname: " + this.getNickname() + "\n"
             + "Birthday: " + this.getBirthdayString() + "\n"            
             + "----------------------" + "\n";
     }
