@@ -169,14 +169,12 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
         while (choice != 9) {
             System.out.println("====== Address Book ======");
             System.out.println("1. Add Contact");
-            System.out.println("2. Edit Contact");
-            System.out.println("3. Delete Contact");
-            System.out.println("4. Search Contact");
-            System.out.println("5. List All Contacts");
-            System.out.println("6. Filter Contacts");
-            System.out.println("7. Manage Groups");
-            System.out.println("8. Reports");
-            System.out.println("9. Exit");
+            System.out.println("2. Search Contact");
+            System.out.println("3. List All Contacts");
+            System.out.println("4. Filter Contacts");
+            System.out.println("5. Manage Groups");
+            System.out.println("6. Reports");
+            System.out.println("7. Exit");
             System.out.print("Enter your choice: ");
 
             choice = input.nextInt();
@@ -186,36 +184,25 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
                 case 1:
                     System.out.println("Add Contact selected.");
                     break;
-
                 case 2:
-                    System.out.println("Edit Contact selected.");
-                    break;
-
-                case 3:
-                    System.out.println("Delete Contact selected.");
-                    break;
-
-                case 4:
                     System.out.println("Search Contact selected.");
+                    // display menu to allow user to search by name, phone, email
+                    // eventually call displayContact() for resulting contact
                     break;
-
-                case 5:
+                case 3:
                     addressBook.displayAllContacts();
                     break;
-
-                case 6:
+                case 4:
                     System.out.println("Filter Contacts selected.");
                     break;
-
-                case 7:
+                case 5:
                     System.out.println("Manage Groups selected.");
                     break;
-
-                case 8:
+                case 6:
                     System.out.println("Reports selected.");
                     break;
 
-                case 9:
+                case 7:
                     System.out.println("Exiting Address Book...");
                     break;
 
@@ -227,6 +214,41 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
         }
 
         input.close();
+    }
+
+    public void displayContact(Contact contact) {
+        Scanner input = new Scanner(System.in);
+        int choice = 0;
+        do {
+            contact.toString();
+            System.out.println("1. Edit Contact");
+            System.out.println("2. Remove Contact");
+            System.out.println("3. Back to previous menu");
+            System.out.print("Enter choice: ");
+            choice = input.nextInt();
+            input.nextLine();
+
+            if (choice == 1) {
+                System.out.print("Enter new name: ");
+                String name = input.nextLine();
+                System.out.print("Enter new phone number: ");
+                String phoneNumber = input.nextLine();
+                System.out.print("Enter new email: ");
+                String email = input.nextLine();
+                System.out.print("Enter new city: ");
+                String city = input.nextLine();
+                contact.setName(name);
+                contact.setEmail(email);
+                contact.setPhoneNumber(phoneNumber);
+                contact.setCity(city);
+                System.out.println("Updated contact successfully.");
+            } else if (choice == 2) {
+                this.contacts.remove(contact);
+                System.out.println("Removed contact successfully");
+            } else {
+                System.out.println("Invalid input.");
+            } 
+        } while (choice != 3);
     }
 
    public void displayAllContacts() 
