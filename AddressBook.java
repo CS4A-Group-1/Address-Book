@@ -434,8 +434,8 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
                 System.out.println("\n \n \n \n \n");
 
                 // Reports
-                addressBook.displayFiltered(addressBook.filterByType("Person"));
-                addressBook.displayFiltered(addressBook.filterByType("Vendor"));
+                addressBook.listPersonContacts();
+                addressBook.listVendorContacts();
                 addressBook.listBusinessContacts();
                 addressBook.listEmergencyContacts();
                 addressBook.listMissing();
