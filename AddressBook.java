@@ -125,42 +125,6 @@ public void displayFiltered(ArrayList<Contact> contacts) {
         }
 }
 
-// ======== TAG MANAGER ========
-public ArrayList<Contact> manageTags() { // adding and removing tags
-        Scanner input = new Scanner(System.in);
-        System.out.print("Enter contact name: ");
-        String name = input.nextLine();
-
-        Contact c = searchName(name);
-        if (c == null) {
-            System.out.println("Contact not found.");
-            return contacts;
-        }
-
-        System.out.println("1. Add Tag\n");
-        System.out.println("2. Remove Tag\n");
-        System.out.print("Enter choice: ");
-        int choice = input.nextInt();
-        input.nextLine();
-
-        if (choice == 1) {
-            System.out.print("Enter tag to add: ");
-            String tag = input.nextLine();
-            c.addTag(tag);
-            System.out.println("Added tag successfully.");
-        } else if (choice == 2) {
-            System.out.print("Enter tag to remove: ");
-            String tag = input.nextLine();
-            c.removeTag(tag);
-            System.out.println("Removed tag successfully");
-        } else {
-            System.out.println("Invalid input.");
-        }
-
-        return contacts;
-    }
-    // ========
-
     public static void main(String[] args) {
     Scanner input = new Scanner(System.in);
     AddressBook addressBook = new AddressBook();
@@ -173,9 +137,9 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
         // Main menu
         System.out.println("====== Address Book ======");
         System.out.println("1. Add Contact");
-        System.out.println("2. Search Contact");
+        System.out.println("2. Search Address Book for a Contact");
         System.out.println("3. List All Contacts");
-        System.out.println("4. Filter Contacts");
+        System.out.println("4. Filter and Display Contacts");
         System.out.println("5. Manage Groups");
         System.out.println("6. Reports");
         System.out.println("7. Exit");
@@ -333,7 +297,8 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
                         System.out.println("What would you like to do with this Contact?: ");
                         System.out.println(" 1.) Edit Contact ");
                         System.out.println(" 2.) Remove Contact ");
-                        System.out.println(" 3.) Back to previous menu ");
+                        System.out.println(" 3.) Add or Remove Tag to Contact ");
+                        System.out.println(" 4.) Back to previous menu ");
                         System.out.print("Enter choice: ");
                         display_choice = input.nextInt();
                         input.nextLine();
@@ -363,6 +328,35 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
                             display_choice = 3;
 
                         } else if(display_choice == 3){
+                            //Add or Remove Tag to found contact
+                            System.out.println("\n\nTag Choice: ");
+                            System.out.println("1.) Add Tag");
+                            System.out.println("2.) Remove Tag");
+                            System.out.println("3.) Back to Main Menu");
+                            System.out.print("Enter choice: ");
+                            int addOrRemoveTagchoice = input.nextInt();
+                            input.nextLine();
+
+                            if (addOrRemoveTagchoice == 1) {
+                                System.out.print("Enter tag to add: ");
+                                String tag = input.nextLine();
+                                found.addTag(tag);
+                                System.out.println("\nAdded tag successfully.");
+                            } else if (addOrRemoveTagchoice == 2) {
+                                System.out.print("Enter tag to remove: ");
+                                String tag = input.nextLine();
+                                found.removeTag(tag);
+                                System.out.println("\nRemoved tag successfully");
+                            } else if (addOrRemoveTagchoice == 2) {
+                                //Return user to main menu
+                                break;
+                            } 
+                            
+                            else {
+                                System.out.println("\nInvalid input, please try again.");
+                            }
+
+                        }else if(display_choice == 4){
                             //do nothing and pass through
                         }
                         else {
