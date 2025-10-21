@@ -326,7 +326,49 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
                 if (found == null) {
                     System.out.println("\nNo contact found.");
                 } else {
-                    addressBook.displayContact(found);
+                    System.out.println("\n \n \n \n \n");
+                    int display_choice = 0;
+                    do {
+                        System.out.println(found.toString());
+                        System.out.println("What would you like to do with this Contact?: ");
+                        System.out.println(" 1.) Edit Contact ");
+                        System.out.println(" 2.) Remove Contact ");
+                        System.out.println(" 3.) Back to previous menu ");
+                        System.out.print("Enter choice: ");
+                        display_choice = input.nextInt();
+                        input.nextLine();
+
+                        if (display_choice == 1) {
+                            System.out.print("Enter new name: ");
+                            String name = input.nextLine();
+
+                            System.out.print("Enter new phone number: ");
+                            String phoneNumber = input.nextLine();
+
+                            System.out.print("Enter new email: ");
+                            String email = input.nextLine();
+
+                            System.out.print("Enter new city: ");
+                            String city = input.nextLine();
+
+                            found.setName(name);
+                            found.setEmail(email);
+                            found.setPhoneNumber(phoneNumber);
+                            found.setCity(city);
+
+                            System.out.println("\nUpdated contact successfully.");
+                        } else if (display_choice == 2) {
+                            addressBook.contacts.remove(found);
+                            System.out.println("\nRemoved contact successfully");
+                            display_choice = 3;
+
+                        } else if(display_choice == 3){
+                            //do nothing and pass through
+                        }
+                        else {
+                            System.out.println("Invalid input.");
+                        } 
+                    } while (display_choice != 3);
                 }
 
                 //pause menu
@@ -467,54 +509,6 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
     input.close();
 }
 
-    public void displayContact(Contact contact) {
-        //Wipe Screen
-        System.out.println("\n \n \n \n \n");
-
-        Scanner input = new Scanner(System.in);
-        int choice = 0;
-        do {
-            System.out.println(contact.toString());
-            System.out.println("What would you like to do with this Contact?: ");
-            System.out.println(" 1.) Edit Contact ");
-            System.out.println(" 2.) Remove Contact ");
-            System.out.println(" 3.) Back to previous menu ");
-            System.out.print("Enter choice: ");
-            choice = input.nextInt();
-            input.nextLine();
-
-            if (choice == 1) {
-                System.out.print("Enter new name: ");
-                String name = input.nextLine();
-
-                System.out.print("Enter new phone number: ");
-                String phoneNumber = input.nextLine();
-
-                System.out.print("Enter new email: ");
-                String email = input.nextLine();
-
-                System.out.print("Enter new city: ");
-                String city = input.nextLine();
-
-                contact.setName(name);
-                contact.setEmail(email);
-                contact.setPhoneNumber(phoneNumber);
-                contact.setCity(city);
-
-                System.out.println("\nUpdated contact successfully.");
-            } else if (choice == 2) {
-                this.contacts.remove(contact);
-                System.out.println("\nRemoved contact successfully");
-                choice = 3;
-
-            } else if(choice == 3){
-                //do nothing and pass through
-            }
-            else {
-                System.out.println("Invalid input.");
-            } 
-        } while (choice != 3);
-    }
 
    public void displayAllContacts() 
    {
