@@ -196,7 +196,7 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
                 System.out.println("\n \n \n \n \n");
 
                 // Add contact by type
-                System.out.println("Type:\n 1.) Person\n 2.) Business\n 3.) Vendor\n 4.) Emergency\n 5.) Back to Main Menu\n");
+                System.out.println("Type:\n 1.) Person\n 2.) Business\n 3.) Vendor\n 4.) Emergency\n 5.) Back to Main Menu ");
                 System.out.print("Enter type: ");
                 int t;
                 try {
@@ -205,6 +205,16 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
                     t = -1;
                 }
 
+                //input check/back to main menu
+                boolean isInvalidInput = t < 1 || t > 5;
+                if (isInvalidInput){
+                    //tell the user their input is invalid and tell them to try again with a pause.
+                    System.out.println("\nInvalid input, try again.");
+                    pause(input);
+                    break;
+                } 
+
+                //go back to main menu
                 if (t == 5){
                     break;
                 } 
@@ -271,8 +281,6 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
                     }
                     ok = addressBook.createEmergencyContact(name, phone, email, city, p);
 
-                } else {
-                    System.out.println("Unknown type.");
                 }
 
                 if (t != 5){
@@ -316,35 +324,9 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
                 }
 
                 if (found == null) {
-                    System.out.println("No contact found.");
+                    System.out.println("\nNo contact found.");
                 } else {
-                    System.out.println("\nWhat would you like to do with the contact?: ");
-                    System.out.println("1. View contact");
-                    System.out.println("2. Edit or Remove");
-                    System.out.println("3. Back to Main Menu");
-                    System.out.print("Enter choice: ");
-                    int sub;
-                    try {
-                        sub = Integer.parseInt(input.nextLine().trim());
-                    } catch (Exception e) {
-                        sub = 0;
-                    }
-
-                    //White space to make menu look clean
-                    System.out.println("\n");
-
-                    if (sub == 1) {
-                        // View only
-                        System.out.println(found.toString());
-                    } else if (sub == 2) {
-                        // Open single-contact menu with edit/delete (your classmates' method)
-                        addressBook.displayContact(found);
-                    } else if (sub == 3) {
-                        // back to main
-                        break;
-                    } else {
-                        System.out.println("Invalid choice.");
-                    }
+                    addressBook.displayContact(found);
                 }
 
                 //pause menu
@@ -486,13 +468,17 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
 }
 
     public void displayContact(Contact contact) {
+        //Wipe Screen
+        System.out.println("\n \n \n \n \n");
+
         Scanner input = new Scanner(System.in);
         int choice = 0;
         do {
             System.out.println(contact.toString());
-            System.out.println("1. Edit Contact");
-            System.out.println("2. Remove Contact");
-            System.out.println("3. Back to previous menu");
+            System.out.println("What would you like to do with this Contact?: ");
+            System.out.println(" 1.) Edit Contact ");
+            System.out.println(" 2.) Remove Contact ");
+            System.out.println(" 3.) Back to previous menu ");
             System.out.print("Enter choice: ");
             choice = input.nextInt();
             input.nextLine();
@@ -515,13 +501,16 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
                 contact.setPhoneNumber(phoneNumber);
                 contact.setCity(city);
 
-                System.out.println("Updated contact successfully.");
+                System.out.println("\nUpdated contact successfully.");
             } else if (choice == 2) {
                 this.contacts.remove(contact);
-                System.out.println("Removed contact successfully");
+                System.out.println("\nRemoved contact successfully");
                 choice = 3;
 
-            } else {
+            } else if(choice == 3){
+                //do nothing and pass through
+            }
+            else {
                 System.out.println("Invalid input.");
             } 
         } while (choice != 3);
@@ -612,7 +601,7 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
 
     public void listVendorContacts() {
         System.out.println("\n");
-        
+
         System.out.println("---Vendor Contacts---");
         for (Contact c : contacts) {
             if (c instanceof Vendor) {
@@ -644,7 +633,7 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
     }
 
     public void listMissing() {
-        System.out.println("Contacts Missing Phone number");
+        System.out.println("\nContacts Missing Phone number");
         System.out.print("\n");
         for (Contact c : contacts) {
             boolean missingPhone = c.getPhoneNumber() == null || c.getPhoneNumber().trim().isEmpty();
@@ -654,7 +643,7 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
                 System.out.println(c.toString());
             }
         }
-        System.out.println("Contacts Missing Email");
+        System.out.println("\nContacts Missing Email");
         System.out.print("\n");
         for (Contact c : contacts) {
             boolean missingEmail = c.getEmail() == null || c.getEmail().trim().isEmpty();
@@ -671,16 +660,3 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
         input.nextLine();
     }   
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
