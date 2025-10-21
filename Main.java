@@ -280,7 +280,7 @@ public class Main {
 
 
                     // Filter menu
-                    System.out.println("Filter:\n 1.) Type\n 2.) City\n 3.) Tag\n ");
+                    System.out.println("Filter:\n 1.) Type\n 2.) City\n 3.) Tag\n 4.) Back to Main Menu");
                     System.out.println("Enter filter type: ");
                     int f;
                     try {
@@ -290,8 +290,9 @@ public class Main {
                     }
 
                     if (f == 1) {
-                        System.out.println("Type:\n 1.) Person\n 2.) Business\n 3.) Vendor\n 4.) Emergency\n 5.) Back to Main Menu\n");
+                        System.out.println("Type:\n 1.) Person\n 2.) Business\n 3.) Vendor\n 4.) Emergency\n ");
                         String ty = input.nextLine().trim();
+
                         addressBook.displayFiltered(addressBook.filterByType(ty));
                     } else if (f == 2) {
                         System.out.println("City: ");
@@ -308,6 +309,8 @@ public class Main {
                             }
                         }
                         addressBook.displayFiltered(addressBook.filterByTags(tags));
+                    } else if( f == 4){
+                        //Do nothing and pass through
                     } else {
                         System.out.println("\nInvalid filter type.");
                     }
