@@ -62,7 +62,7 @@ public class Person extends Contact {
         bdayCalendar.setTime(this.birthday);
         int day = bdayCalendar.get(Calendar.DAY_OF_MONTH);
         int month = bdayCalendar.get(Calendar.MONTH) + 1;
-        int year = bdayCalendar.get(Calendar.MONTH) + 1;
+        int year = bdayCalendar.get(Calendar.YEAR);
 
         return String.format("%02d/%02d/%04d", month, day, year);
     }
