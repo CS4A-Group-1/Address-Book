@@ -323,7 +323,7 @@ public void displayFiltered(ArrayList<Contact> contacts) {
 
                             System.out.println("\nUpdated contact successfully.");
                         } else if (display_choice == 2) {
-                            addressBook.contacts.remove(found);
+                            addressBook.getContacts().remove(found);
                             System.out.println("\nRemoved contact successfully");
                             display_choice = 3;
 
@@ -648,3 +648,4 @@ public void displayFiltered(ArrayList<Contact> contacts) {
         input.nextLine();
     }   
 }
+
