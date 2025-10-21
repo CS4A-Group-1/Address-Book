@@ -167,6 +167,9 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
     int choice = 0;
 
     while (choice != 7) {
+        //"wipe" the screen
+        System.out.println("\n \n \n \n \n");
+
         // Main menu
         System.out.println("====== Address Book ======");
         System.out.println("1. Add Contact");
@@ -189,8 +192,11 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
         switch (choice) {
 
             case 1: {
+                //"wipe" the screen
+                System.out.println("\n \n \n \n \n");
+
                 // Add contact by type
-                System.out.println("Type: 1 Person, 2 Business, 3 Vendor, 4 Emergency");
+                System.out.println("Type:\n 1.) Person\n 2.) Business\n 3.) Vendor\n 4.) Emergency\n 5.) Back to Main Menu\n");
                 System.out.print("Enter type: ");
                 int t;
                 try {
@@ -198,6 +204,10 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
                 } catch (Exception e) {
                     t = -1;
                 }
+
+                if (t == 5){
+                    break;
+                } 
 
                 // Common fields
                 System.out.print("Name: ");
@@ -265,14 +275,22 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
                     System.out.println("Unknown type.");
                 }
 
-                System.out.println(ok ? "Contact added." : "Add failed.");
+                if (t != 5){
+                    System.out.println(ok ? "\nContact added." : "\nAdd Contact failed, try again.");
+                }
+
+                //Pause menu
+                pause(input);
                 break;
             }
 
             case 2: {
+                //"wipe" the screen
+                System.out.println("\n \n \n \n \n");
+
                 // Search, then choose how to proceed with the found contact
-                System.out.println("Search by: 1 Name, 2 Phone, 3 Email");
-                System.out.print("Enter search type: ");
+                System.out.println("Search by:\n 1.) Name\n 2.) Phone\n 3.) Email\n 4.) Back to Main Menu ");
+                System.out.println("Enter search type: ");
                 int s;
                 try {
                     s = Integer.parseInt(input.nextLine().trim());
@@ -290,6 +308,9 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
                 } else if (s == 3) {
                     System.out.print("Email: ");
                     found = addressBook.searchEmail(input.nextLine().trim());
+                } else if(s == 4){
+                    //Back to main menu option
+                    break;
                 } else {
                     System.out.println("Invalid search type.");
                 }
@@ -297,10 +318,10 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
                 if (found == null) {
                     System.out.println("No contact found.");
                 } else {
-                    System.out.println();
+                    System.out.println("\nWhat would you like to do with the contact?: ");
                     System.out.println("1. View contact");
                     System.out.println("2. Edit or Remove");
-                    System.out.println("3. Back");
+                    System.out.println("3. Back to Main Menu");
                     System.out.print("Enter choice: ");
                     int sub;
                     try {
@@ -309,33 +330,48 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
                         sub = 0;
                     }
 
+                    //White space to make menu look clean
+                    System.out.println("\n");
+
                     if (sub == 1) {
                         // View only
                         System.out.println(found.toString());
-                        System.out.print("Press Enter to continue...");
-                        input.nextLine(); // pause
                     } else if (sub == 2) {
                         // Open single-contact menu with edit/delete (your classmates' method)
                         addressBook.displayContact(found);
                     } else if (sub == 3) {
                         // back to main
+                        break;
                     } else {
                         System.out.println("Invalid choice.");
                     }
                 }
+
+                //pause menu
+                pause(input);
                 break;
             }
 
             case 3: {
+                //"wipe" the screen
+                 System.out.println("\n \n \n \n \n");
+
                 // List all contacts
                 addressBook.displayAllContacts();
+
+                //pause menu
+                pause(input);
                 break;
             }
 
             case 4: {
+                //"wipe" the screen
+                System.out.println("\n \n \n \n \n");
+
+
                 // Filter menu
-                System.out.println("Filter: 1 Type, 2 City, 3 Tags");
-                System.out.print("Enter filter type: ");
+                System.out.println("Filter:\n 1.) Type\n 2.) City\n 3.) Tag\n ");
+                System.out.println("Enter filter type: ");
                 int f;
                 try {
                     f = Integer.parseInt(input.nextLine().trim());
@@ -344,15 +380,15 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
                 }
 
                 if (f == 1) {
-                    System.out.print("Enter type Person, Business, Vendor, Emergency: ");
+                    System.out.println("Type:\n 1.) Person\n 2.) Business\n 3.) Vendor\n 4.) Emergency\n 5.) Back to Main Menu\n");
                     String ty = input.nextLine().trim();
                     addressBook.displayFiltered(addressBook.filterByType(ty));
                 } else if (f == 2) {
-                    System.out.print("City: ");
+                    System.out.println("City: ");
                     String ci = input.nextLine().trim();
                     addressBook.displayFiltered(addressBook.filterByCity(ci));
                 } else if (f == 3) {
-                    System.out.print("Enter tags separated by commas: ");
+                    System.out.println("Enter tags separated by commas: ");
                     String lineTags = input.nextLine().trim();
                     ArrayList<String> tags = new ArrayList<>();
                     if (!lineTags.isEmpty()) {
@@ -363,15 +399,21 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
                     }
                     addressBook.displayFiltered(addressBook.filterByTags(tags));
                 } else {
-                    System.out.println("Invalid filter type.");
+                    System.out.println("\nInvalid filter type.");
                 }
+
+                //pause menu
+                pause(input);
                 break;
             }
 
             case 5: {
+                //"wipe" the screen
+                System.out.println("\n \n \n \n \n");
+                
                 // Groups menu
-                System.out.println("Groups: 1 Create, 2 Add Contact, 3 Summary");
-                System.out.print("Enter group action: ");
+                System.out.println("Groups:\n 1.) Create Group\n 2.) Add Contact to Group\n 3.) View all Group Summaries ");
+                System.out.print("Enter Choice: ");
                 int g;
                 try {
                     g = Integer.parseInt(input.nextLine().trim());
@@ -382,7 +424,7 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
                 if (g == 1) {
                     System.out.print("Group name: ");
                     String gname = input.nextLine().trim();
-                    System.out.println(addressBook.createGroup(gname) ? "Group created." : "Create failed.");
+                    System.out.println(addressBook.createGroup(gname) ? "\nGroup created." : "\nCreate Group failed.");
                 } else if (g == 2) {
                     System.out.print("Contact name: ");
                     String cname = input.nextLine().trim();
@@ -393,34 +435,46 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
                     }
                     System.out.print("Group name: ");
                     String gname = input.nextLine().trim();
-                    System.out.println(addressBook.addContactToGroup(c, gname) ? "Added to group." : "Add failed.");
+                    System.out.println(addressBook.addContactToGroup(c, gname) ? "\nAdded to group." : "\nAdd failed.");
                 } else if (g == 3) {
                     addressBook.groupSummary();
                 } else {
-                    System.out.println("Invalid group action.");
+                    System.out.println("\nInvalid Choice.");
                 }
+
+                //Pause menu
+                pause(input);
                 break;
             }
 
             case 6: {
+                //Wipe Screen
+                System.out.println("\n \n \n \n \n");
+
                 // Reports
                 addressBook.displayFiltered(addressBook.filterByType("Person"));
                 addressBook.displayFiltered(addressBook.filterByType("Vendor"));
                 addressBook.listBusinessContacts();
                 addressBook.listEmergencyContacts();
                 addressBook.listMissing();
+
+                //Pause menu
+                pause(input);
                 break;
             }
 
             case 7: {
                 // Exit
-                System.out.println("Exiting Address Book...");
+                System.out.println("\nExiting Address Book...");
                 break;
             }
 
             default: {
                 // Invalid number
-                System.out.println("Invalid choice. Try again.");
+                System.out.println("\nInvalid choice. Try again.");
+
+                //pause menu
+                pause(input);
                 break;
             }
         }
@@ -446,21 +500,27 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
             if (choice == 1) {
                 System.out.print("Enter new name: ");
                 String name = input.nextLine();
+
                 System.out.print("Enter new phone number: ");
                 String phoneNumber = input.nextLine();
+
                 System.out.print("Enter new email: ");
                 String email = input.nextLine();
+
                 System.out.print("Enter new city: ");
                 String city = input.nextLine();
+
                 contact.setName(name);
                 contact.setEmail(email);
                 contact.setPhoneNumber(phoneNumber);
                 contact.setCity(city);
+
                 System.out.println("Updated contact successfully.");
             } else if (choice == 2) {
                 this.contacts.remove(contact);
                 System.out.println("Removed contact successfully");
                 choice = 3;
+
             } else {
                 System.out.println("Invalid input.");
             } 
@@ -478,7 +538,6 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
     for (Contact c : contacts) 
     {
         System.out.println(c.toString());
-        System.out.println("----------------------");
     }
     }
     
@@ -541,7 +600,9 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
     }
 
     public void listEmergencyContacts() {
-        System.out.println("Emergency Contacts");
+        System.out.println("\n");
+
+        System.out.println("---Emergency Contacts---");
         for (Contact c : contacts) {
             if (c instanceof Emergency) {
                 System.out.println(c.toString());
@@ -550,7 +611,9 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
     }
 
     public void listVendorContacts() {
-        System.out.println("Vendor Contacts");
+        System.out.println("\n");
+        
+        System.out.println("---Vendor Contacts---");
         for (Contact c : contacts) {
             if (c instanceof Vendor) {
                 System.out.println(c.toString());
@@ -559,7 +622,9 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
     }
 
     public void listPersonContacts() {
-        System.out.println("Person Contacts");
+         System.out.println("\n");
+
+        System.out.println("---Person Contacts---");
         for (Contact c : contacts) {
             if (c instanceof Person) {
                 System.out.println(c.toString());
@@ -568,7 +633,9 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
     }
 
     public void listBusinessContacts() {
-        System.out.println("Business Contacts");
+        System.out.println("\n");
+
+        System.out.println("---Business Contacts---");
         for (Contact c : contacts) {
             if (c instanceof Business) {
                 System.out.println(c.toString());
@@ -599,8 +666,18 @@ public ArrayList<Contact> manageTags() { // adding and removing tags
         }
     }
 
-
+    private static void pause(Scanner input) {
+        System.out.println("\nPress Enter to continue...");
+        input.nextLine();
+    }   
 }
+
+
+
+
+
+
+
 
 
 
