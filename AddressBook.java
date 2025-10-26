@@ -126,19 +126,19 @@ public ArrayList<Contact> filterByTags(ArrayList<String> tags) { // filtering by
 // }
 
 
-   public void displayAllContacts() 
-   {
-    if (contacts.isEmpty()) 
-    {
-        System.out.println("No contacts found.\n");
-        return;
-    }
+   // public void displayAllContacts() 
+   // {
+   //  if (contacts.isEmpty()) 
+   //  {
+   //      System.out.println("No contacts found.\n");
+   //      return;
+   //  }
 
-    for (Contact c : contacts) 
-    {
-        System.out.println(c.toString());
-    }
-    }
+   //  for (Contact c : contacts) 
+   //  {
+   //      System.out.println(c.toString());
+   //  }
+   //  }
     
     // ----- GROUPS METHODS -----
 
@@ -266,4 +266,5 @@ public ArrayList<Contact> filterByTags(ArrayList<String> tags) { // filtering by
     }
 
 }
+
 
