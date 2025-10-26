@@ -141,7 +141,10 @@ public class AddressBookMenu {
 
 
 
-    public void manageContactPrompt(Contact contact){
+   public void manageContactPrompt(Contact contact){
+        String choice = "0";
+        Scanner in = new Scanner (System.in);
+
         System.out.println("What would you like to do with this Contact?: ");
         System.out.println(" 1.) Edit Contact ");
         System.out.println(" 2.) Remove Contact ");
@@ -149,8 +152,51 @@ public class AddressBookMenu {
         System.out.println(" 4.) Back to previous menu ");
         System.out.print("Enter choice: ");
 
-        // TODO: Finish
-        // dont forget to call manageTags for 3.)
+        choice = in.toString();
+        in.nextLine();
+
+        do {
+            switch (choice) {
+                case "1": //editing contact
+                    System.out.print("Enter new name: ");
+                    String name = in.nextLine();
+
+                    System.out.print("Enter new phone number: ");
+                    String phoneNumber = in.nextLine();
+
+                    System.out.print("Enter new email: ");
+                    String email = in.nextLine();
+
+                    System.out.print("Enter new city: ");
+                    String city = in.nextLine();
+                    contact.setName(name);
+                    contact.setEmail(email);
+                    contact.setPhoneNumber(phoneNumber);
+                    contact.setCity(city);
+
+                    System.out.println("\nUpdated contact successfully.");
+                    break;
+
+                case "2": //remove contact
+                        addressBook.getContacts().remove(contact);
+                        System.out.println("\nRemoved contact successfully");
+                    break;
+
+                case "3": //tag manager
+                    manageContactPrompt(contact);
+                    break;
+
+                 case "4": //exit to main menu
+                    System.out.println("Exiting...\n");
+                    break;
+                
+                default:
+                    System.out.println("Invalid choice.\n");
+                    break;
+            }
+        } while (choice != "4");
+
+        in.close();
 
     }
 
