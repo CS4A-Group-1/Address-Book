@@ -183,7 +183,7 @@ public class AddressBookMenu {
                     break;
 
                 case "3": //tag manager
-                    manageContactPrompt(contact);
+                    manageTags(contact);
                     break;
 
                  case "4": //exit to main menu
