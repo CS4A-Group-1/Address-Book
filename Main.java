@@ -5,6 +5,12 @@ import java.util.Scanner;
 public class Main {
     
     
+
+    //Note on how to build main:
+    // try to nest scope within each case as little as possible. Sometimes it will be necessary, but try to keep the nesting really small. 
+    // within a switch case, you should NEVER nest a loop. If any of these cases require nesting of a while/for/dowhile loop, then that functionality needs to go in its own function in this Main class.
+    // an example of how a case should look are cases 3 & 6. thems are damn fine cases.
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         AddressBook addressBook = new AddressBook();
@@ -168,89 +174,8 @@ public class Main {
                     // } else {
                     //     System.out.println("\n\n\n\n\n");
 
-                    //     int display_choice = 0;
-                    //     do {
-                    //         System.out.println(found.toString());
-                    //         System.out.println("What would you like to do with this Contact?: ");
-                    //         System.out.println(" 1.) Edit Contact ");
-                    //         System.out.println(" 2.) Remove Contact ");
-                    //         System.out.println(" 3.) Add or Remove Tag to Contact ");
-                    //         System.out.println(" 4.) Back to previous menu ");
-                    //         System.out.print("Enter choice: ");
-
-                    //         // Safely read numeric input
-                    //         if (!input.hasNextInt()) {
-                    //             System.out.println("Invalid input, please enter a number.");
-                    //             input.nextLine(); // clear invalid input
-                    //             continue;
-                    //         }
-
-                    //         display_choice = input.nextInt();
-                    //         input.nextLine(); // clear newline
-
-                    //         if (display_choice == 1) {
-                    //             System.out.print("Enter new name: ");
-                    //             String name = input.nextLine();
-
-                    //             System.out.print("Enter new phone number: ");
-                    //             String phoneNumber = input.nextLine();
-
-                    //             System.out.print("Enter new email: ");
-                    //             String email = input.nextLine();
-
-                    //             System.out.print("Enter new city: ");
-                    //             String city = input.nextLine();
-
-                    //             found.setName(name);
-                    //             found.setEmail(email);
-                    //             found.setPhoneNumber(phoneNumber);
-                    //             found.setCity(city);
-
-                    //             System.out.println("\nUpdated contact successfully.");
-
-                    //         } else if (display_choice == 2) {
-                    //             // safer to call a remove method than modifying the list directly
-                    //             addressBook.getContacts().remove(found);
-                    //             System.out.println("\nRemoved contact successfully");
-                    //             break;
-
-                    //         } else if (display_choice == 3) {
-                    //             System.out.println("\n\nTag Choice: ");
-                    //             System.out.println(" 1.) Add Tag");
-                    //             System.out.println(" 2.) Remove Tag");
-                    //             System.out.println(" 3.) Back to Previous Menu");
-                    //             System.out.print("Enter choice: ");
-
-                    //             if (!input.hasNextInt()) {
-                    //                 System.out.println("Invalid input, please enter a number.");
-                    //                 input.nextLine();
-                    //                 continue;
-                    //             }
-
-                    //             int addOrRemoveTagChoice = input.nextInt();
-                    //             input.nextLine();
-
-                    //             if (addOrRemoveTagChoice == 1) {
-                    //                 System.out.print("Enter tag to add: ");
-                    //                 String tag = input.nextLine();
-                    //                 found.addTag(tag);
-                    //                 System.out.println("\nAdded tag successfully.");
-
-                    //             } else if (addOrRemoveTagChoice == 2) {
-                    //                 System.out.print("Enter tag to remove: ");
-                    //                 String tag = input.nextLine();
-                    //                 found.removeTag(tag);
-                    //                 System.out.println("\nRemoved tag successfully.");
-
-                    //             } else if (addOrRemoveTagChoice != 3) {
-                    //                 System.out.println("\nInvalid input, please try again.");
-                    //             }
-
-                    //         } else if (display_choice != 4) {
-                    //             System.out.println("Invalid input.");
-                    //         }
-
-                    //     } while (display_choice != 4);
+                    //    manageContactPrompt()
+                    //     
                     // }
 
                     //pause menu

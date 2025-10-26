@@ -7,9 +7,9 @@ import java.text.SimpleDateFormat;
 public class AddressBookMenu {
     AddressBook addressBook;
 
-        AddressBookMenu(AddressBook addressBook){
-            this.addressBook = addressBook;
-        }
+    AddressBookMenu(AddressBook addressBook){
+        this.addressBook = addressBook;
+    }
 
     public void groupSummary(ArrayList<Group> groups){
         System.out.println();
@@ -154,27 +154,156 @@ public class AddressBookMenu {
 
     }
 
-    public void displayAddContactMenu(){ //case 1
-        //
 
-        
+    public void displayAddContactMenu() {
+        Scanner input = new Scanner(System.in);
+        boolean inAddMenu = true;
 
-        // if else chain for 4 different types
-        // addressBook.addContact()
+        while (inAddMenu) {
+            System.out.println("\nAdd Contact Menu: ");
+            System.out.println("1.) Person");
+            System.out.println("2.) Business");
+            System.out.println("3.) Vendor");
+            System.out.println("4.) Emergency");
+            System.out.println("5.) Back to Main Menu");
+            System.out.print("Enter your choice: ");
+
+            String choice = input.nextLine().trim();
+
+            switch (choice) {
+                case "1" -> {
+                    addressBook.createContact(buildPersonContact());
+                    System.out.println("\nPerson contact added successfully.");
+                }
+                case "2" -> {
+                    addressBook.createContact(buildBusinessContact());
+                    System.out.println("\nBusiness contact added successfully.");
+                }
+                case "3" -> {
+                    addressBook.createContact(buildVendorContact());
+                    System.out.println("\nVendor contact added successfully.");
+                }
+                case "4" -> {
+                    addressBook.createContact(buildEmergencyContact());
+                    System.out.println("\nEmergency contact added successfully.");
+                }
+                case "5" -> {
+                    System.out.println("\nReturning to main menu...");
+                    inAddMenu = false;
+                }
+                default -> {
+                    System.out.println("\nInvalid choice. Please enter 1–5.");
+                }
+            }
+
+        }
+
+        input.close();
     }
 
-    public void searchContactMenu(){ //first half case 2
-        //See case 2 in Main, copy top part mainly
+    public void searchContactMenu() {
+        Scanner input = new Scanner(System.in);
+        boolean inSearchMenu = true;
+
+        while (inSearchMenu) {
+            System.out.println("\nSearch Contact Menu: ");
+            System.out.println("1.) Search by Name");
+            System.out.println("2.) Search by Phone");
+            System.out.println("3.) Search by Email");
+            System.out.println("4.) Back to Main Menu");
+            System.out.print("Enter your choice: ");
+
+            String choice = input.nextLine().trim();
+            Contact searchedContact = null;
+
+            switch (choice) {
+                case "1" -> {
+                    System.out.print("Enter Name: ");
+                    searchedContact = addressBook.searchName(input.nextLine().trim());
+                }
+                case "2" -> {
+                    System.out.print("Enter Phone: ");
+                    searchedContact = addressBook.searchPhone(input.nextLine().trim());
+                }
+                case "3" -> {
+                    System.out.print("Enter Email: ");
+                    searchedContact = addressBook.searchEmail(input.nextLine().trim());
+                }
+                case "4" -> {
+                    System.out.println("\nReturning to main menu...");
+                    inSearchMenu = false;
+                }
+                default -> System.out.println("\nInvalid choice. Please enter 1–4.");
+            }
+
+            if (inSearchMenu) {
+                if (searchedContact == null) {
+                    System.out.println("\nNo contact found.");
+                } else {
+                    System.out.println("\nContact found:\n" + searchedContact);
+                    manageContactPrompt(searchedContact);
+                }
+            }
+
+        }
+
+        input.close();
     }
+
 
     public void displayByFilter(){ //case 4
+        Scanner input = new Scanner(System.in);
 
+        System.out.println("Filter:\n 1.) Type\n 2.) City\n 3.) Tag\n 4.) Back to Main Menu");
+        System.out.println("Enter filter type: ");
+
+        String choice = input.nextLine().trim();
+
+        if (choice == "1") {
+            System.out.println("Type:\n 1.) Person\n 2.) Business\n 3.) Vendor\n 4.) Emergency\n ");
+            String contactType = input.nextLine().trim();
+
+            this.displayFiltered(addressBook.filterByType(contactType));
+
+        } else if (choice == "2") {
+            System.out.println("City: ");
+            String cityName = input.nextLine().trim();
+
+            this.displayFiltered(addressBook.filterByCity(cityName));
+
+        } else if (choice == "3") {
+            System.out.println("Enter tags separated by commas: ");
+            String commaSeparatedTags = input.nextLine().trim();
+
+            ArrayList<String> tags = this.parseTags(commaSeparatedTags);
+            
+            this.displayFiltered(addressBook.filterByTags(tags));
+
+        } else if(choice == "4"){
+            //Do nothing and pass through
+        } else {
+            System.out.println("\nInvalid filter type.");
+        }
+
+        input.close();
     }
 
-    public void displayGroupSummariesMenu(){
-        
+    //Helper function for displayByFilter
+    private ArrayList<String> parseTags(String commaSeparatedTags) {
+        ArrayList<String> tags = new ArrayList<>();
+
+        if (commaSeparatedTags == null || commaSeparatedTags.isEmpty()) return tags;
+
+        for (String rawTag : commaSeparatedTags.split(",")) {
+            String trimmedTag = rawTag.trim();
+            if (!trimmedTag.isEmpty()) tags.add(trimmedTag);
+        }
+
+        return tags;
     }
 
+
+    // ------------ Helper Functions for displayAddContactMenu ------------
     private String[] buildContactAttributes(Scanner input) {
         String[] attributes = new String[4];
         String name, phoneNumber, email, city;
@@ -196,7 +325,7 @@ public class AddressBookMenu {
         return attributes;
     }
 
-    //Helper Functions for displayAddContactMenu
+
     private Person buildPersonContact(){
         Scanner input = new Scanner(System.in);
         String name, phoneNumber, email, city, relationship, nickname, birthdayString;
@@ -282,11 +411,9 @@ public class AddressBookMenu {
 
         return new Emergency(name, phoneNumber, email, city, priorityLevel);
     }
+        // ------------ ------------ ------------
 
-    public static void pause(Scanner input) {
-        System.out.println("\nPress Enter to continue...");
-        input.nextLine();
-    }
+
 
     private ArrayList<Contact> manageTags(ArrayList<Contact> contacts) { // adding and removing tags
         Scanner input = new Scanner(System.in);
@@ -324,6 +451,11 @@ public class AddressBookMenu {
         input.close();
 
         return contacts;
+    }
+
+    public static void pause(Scanner input) {
+        System.out.println("\nPress Enter to continue...");
+        input.nextLine();
     }
 
 
