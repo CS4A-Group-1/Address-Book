@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class AddressBookMenu {
     AddressBook addressBook;
@@ -172,29 +175,112 @@ public class AddressBookMenu {
         
     }
 
+    private String[] buildContactAttributes(Scanner input) {
+        String[] attributes = new String[4];
+        String name, phoneNumber, email, city;
+
+        System.out.println("Name: ");
+        name = input.nextLine();
+        System.out.println("Phone Number: ");
+        phoneNumber = input.nextLine();
+        System.out.println("Email: ");
+        email = input.nextLine();
+        System.out.println("City: ");
+        city = input.nextLine();
+
+        attributes[0] = name;
+        attributes[1] = phoneNumber;
+        attributes[2] = email;
+        attributes[3] = city;
+
+        return attributes;
+    }
 
     //Helper Functions for displayAddContactMenu
     private Person buildPersonContact(){
-        //Prompt for each Attribute of the contact
-        return contact;
+        Scanner input = new Scanner(System.in);
+        String name, phoneNumber, email, city, relationship, nickname, birthdayString;
+        Date birthday;
+
+        String[] contactAttributes = buildContactAttributes(input);
+        name = contactAttributes[0];
+        phoneNumber = contactAttributes[1];
+        email = contactAttributes[2];
+        city = contactAttributes[3];
+
+        System.out.println("Relationship: ");
+        relationship = input.nextLine();
+        System.out.println("Nickname: ");
+        nickname = input.nextLine();
+        System.out.println("Birthday (DD/MM/YYYY): ");
+        name = input.nextLine();
+
+        birthdayString = input.nextLine();
+        try {
+            birthday = new SimpleDateFormat("dd/mm/yyyy").parse(birthdayString);
+        }
+        catch (ParseException ex) {
+            System.out.println("Incorrect date format, setting birthday to default.");
+            birthday = new Date();
+        }
+        if (birthday == null)
+            birthday = new Date();
+
+        return new Person(name, phoneNumber, email, city, relationship, nickname, birthday);
     }
 
-    private Person buildVendorContact(){
+    private Vendor buildVendorContact(){
         //Prompt for each Attribute of the contact
-        
-        return contact;
+        Scanner input = new Scanner(System.in);
+        String name, phoneNumber, email, city, industry, id;
+
+        String[] contactAttributes = buildContactAttributes(input);
+        name = contactAttributes[0];
+        phoneNumber = contactAttributes[1];
+        email = contactAttributes[2];
+        city = contactAttributes[3];
+
+        System.out.println("Industry: ");
+        industry = input.nextLine();
+        System.out.println("Id: ");
+        id = input.nextLine();
+
+        return new Vendor(name, phoneNumber, email, city, industry, id);
     }    
 
-    private Person buildBusinessContact(){
+    private Business buildBusinessContact(){
         //Prompt for each Attribute of the contact
-        
-        return contact;
+        Scanner input = new Scanner(System.in);
+        String name, phoneNumber, email, city, url;
+
+        String[] contactAttributes = buildContactAttributes(input);
+        name = contactAttributes[0];
+        phoneNumber = contactAttributes[1];
+        email = contactAttributes[2];
+        city = contactAttributes[3];
+
+        System.out.println("URL: ");
+        url = input.nextLine();
+
+        return new Business(name, phoneNumber, email, city, url);
     }
 
-    private Person buildEmergencyContact(){
+    private Emergency buildEmergencyContact(){
         //Prompt for each Attribute of the contact
-        
-        return contact;
+        Scanner input = new Scanner(System.in);
+        String name, phoneNumber, email, city; 
+        int priorityLevel;
+
+        String[] contactAttributes = buildContactAttributes(input);
+        name = contactAttributes[0];
+        phoneNumber = contactAttributes[1];
+        email = contactAttributes[2];
+        city = contactAttributes[3];
+
+        System.out.println("Priority Level: ");
+        priorityLevel = input.nextInt();
+
+        return new Emergency(name, phoneNumber, email, city, priorityLevel);
     }
 
     public static void pause(Scanner input) {
