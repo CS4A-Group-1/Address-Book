@@ -56,6 +56,7 @@ public class AddressBook {
             return null;
     }
 
+<<<<<<< HEAD
 
 // ======== FILTER FUNCTIONS ========
     public ArrayList<Contact> filterByType(String type) { //filtering by Type
@@ -91,6 +92,71 @@ public class AddressBook {
 
 
 
+=======
+// public void displaySearch(Contact contact) {
+//         if (contact == null) {
+//             System.out.println("No contact found.");
+//         } else {
+//             System.out.println("Results: " + contact.toString());
+//         }
+//     }
+
+// ======== FILTER FUNCTIONS ========
+public ArrayList<Contact> filterByType(String type) { //filtering by Type
+        ArrayList<Contact> results = new ArrayList<>();
+        for (Contact c : contacts) {
+            if (c.getClass().getSimpleName().equalsIgnoreCase(type)) {
+                results.add(c);
+            }
+        }
+        return results;
+    }
+
+public ArrayList<Contact> filterByCity(String city) { //filtering by City
+        ArrayList<Contact> results = new ArrayList<>();
+        for (Contact c : contacts) {
+            if (c.getCity().equalsIgnoreCase(city)) {
+                results.add(c);
+            }
+        }
+        return results;
+    }
+
+public ArrayList<Contact> filterByTags(ArrayList<String> tags) { // filtering by Tags
+        ArrayList<Contact> results = new ArrayList<>();
+        for (Contact c : contacts) {
+            if (c.getTags().containsAll(tags)) {
+                results.add(c);
+            }
+        }
+        return results;
+    }
+
+// public void displayFiltered(ArrayList<Contact> contacts) {
+//         if (contacts.isEmpty()) {
+//             System.out.println("No contacts matched.");
+//         } else {
+//             for (Contact c : contacts) {
+//                 System.out.println(c.toString());
+//             }
+//         }
+// }
+
+
+   // public void displayAllContacts() 
+   // {
+   //  if (contacts.isEmpty()) 
+   //  {
+   //      System.out.println("No contacts found.\n");
+   //      return;
+   //  }
+
+   //  for (Contact c : contacts) 
+   //  {
+   //      System.out.println(c.toString());
+   //  }
+   //  }
+>>>>>>> 433b24fd6c04c9c3f1abd4db9d7b8851196b9311
     
     // ----- GROUPS METHODS -----
 
@@ -130,3 +196,5 @@ public class AddressBook {
 
 
 }
+
+
