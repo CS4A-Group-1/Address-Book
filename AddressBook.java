@@ -76,13 +76,13 @@ public Contact searchEmail(String email) { // searching by Email
         return null;
     }
 
-public void displaySearch(Contact contact) {
-        if (contact == null) {
-            System.out.println("No contact found.");
-        } else {
-            System.out.println("Results: " + contact.toString());
-        }
-    }
+// public void displaySearch(Contact contact) {
+//         if (contact == null) {
+//             System.out.println("No contact found.");
+//         } else {
+//             System.out.println("Results: " + contact.toString());
+//         }
+//     }
 
 // ======== FILTER FUNCTIONS ========
 public ArrayList<Contact> filterByType(String type) { //filtering by Type
@@ -115,15 +115,15 @@ public ArrayList<Contact> filterByTags(ArrayList<String> tags) { // filtering by
         return results;
     }
 
-public void displayFiltered(ArrayList<Contact> contacts) {
-        if (contacts.isEmpty()) {
-            System.out.println("No contacts matched.");
-        } else {
-            for (Contact c : contacts) {
-                System.out.println(c.toString());
-            }
-        }
-}
+// public void displayFiltered(ArrayList<Contact> contacts) {
+//         if (contacts.isEmpty()) {
+//             System.out.println("No contacts matched.");
+//         } else {
+//             for (Contact c : contacts) {
+//                 System.out.println(c.toString());
+//             }
+//         }
+// }
 
 
    public void displayAllContacts() 
@@ -266,3 +266,4 @@ public void displayFiltered(ArrayList<Contact> contacts) {
     }
 
 }
+
