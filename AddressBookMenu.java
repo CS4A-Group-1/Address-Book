@@ -187,9 +187,11 @@ public class AddressBookMenu {
                     break;
 
                  case "4": //exit to main menu
-                    System.out.println("Exiting...\n");
+
+                 System.out.println("Exiting...\n");
+
                     break;
-                
+            
                 default:
                     System.out.println("Invalid choice.\n");
                     break;
@@ -197,7 +199,6 @@ public class AddressBookMenu {
         } while (choice != "4");
 
         in.close();
-
     }
 
 
@@ -461,18 +462,8 @@ public class AddressBookMenu {
 
 
 
-    private ArrayList<Contact> manageTags(ArrayList<Contact> contacts) { // adding and removing tags
+    private Contact manageTags(Contact contact) { // adding and removing tags
         Scanner input = new Scanner(System.in);
-        System.out.print("Enter contact name: ");
-        String name = input.nextLine();
-
-        Contact c = addressBook.searchName(name);
-        if (c == null) {
-            System.out.println("Contact not found.");
-            input.close();
-
-            return contacts;
-        }
 
         System.out.println("1. Add Tag\n");
         System.out.println("2. Remove Tag\n");
@@ -483,12 +474,12 @@ public class AddressBookMenu {
         if (choice == 1) {
             System.out.print("Enter tag to add: ");
             String tag = input.nextLine();
-            c.addTag(tag);
+            contact.addTag(tag);
             System.out.println("Added tag successfully.");
         } else if (choice == 2) {
             System.out.print("Enter tag to remove: ");
             String tag = input.nextLine();
-            c.removeTag(tag);
+            contact.removeTag(tag);
             System.out.println("Removed tag successfully");
         } else {
             System.out.println("Invalid input.");
@@ -496,7 +487,7 @@ public class AddressBookMenu {
 
         input.close();
 
-        return contacts;
+        return contact;
     }
 
     public static void pause(Scanner input) {
