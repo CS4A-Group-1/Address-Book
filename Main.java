@@ -2,13 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    
-    
 
-    //Note on how to build main:
-    // try to nest scope within each case as little as possible. Sometimes it will be necessary, but try to keep the nesting really small. 
-    // within a switch case, you should NEVER nest a loop. If any of these cases require nesting of a while/for/dowhile loop, then that functionality needs to go in its own function in this Main class.
-    // an example of how a case should look are cases 3 & 6. thems are damn fine cases.
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
@@ -16,7 +10,7 @@ public class Main {
         AddressBookMenu addressBookMenu = new AddressBookMenu(addressBook);
         String choice = "0";
 
-        while (choice != "7") {
+        while ("7".equals(choice)) {
             //"wipe" the screen
             System.out.println("\n \n \n \n \n");
 

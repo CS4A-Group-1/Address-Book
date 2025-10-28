@@ -194,7 +194,7 @@ public class AddressBookMenu {
                     break;
             }
 
-        } while (choice != "4");
+        } while (!"4".equals(choice));
 
     }
 
