@@ -10,7 +10,7 @@ public class Main {
         AddressBookMenu addressBookMenu = new AddressBookMenu(addressBook);
         String choice = "0";
 
-        while ("7".equals(choice)) {
+        while (!"7".equals(choice)) {
             //"wipe" the screen
             System.out.println("\n \n \n \n \n");
 
