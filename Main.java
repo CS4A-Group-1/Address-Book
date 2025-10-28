@@ -77,62 +77,12 @@ public class Main {
 
                 case "5": 
                 {
-                System.out.println("\n\n\n\n\n");
-                System.out.println("Groups:");
-                System.out.println(" 1.) Create Group");
-                System.out.println(" 2.) Add Contact to Group");
-                System.out.println(" 3.) View all Group Summaries");
-                System.out.println(" 4.) Back to Main Menu");
-                System.out.print("Enter choice: ");
+                    System.out.println("\n\n\n\n\n");
 
-                String groupMenuChoice = input.nextLine().trim();
-                 switch (groupMenuChoice) 
-                 {
-                    case "1": 
-                    {
-                        System.out.print("\nGroup name: ");
-                        String groupName = input.nextLine().trim();
-                        boolean created = addressBook.createGroup(groupName);
-                        System.out.println(created ? "\nGroup created." : "\nCreate Group failed.");
-                        break;
-                    }
-                    case "2": 
-                    {
-                        System.out.print("\nContact name: ");
-                        String contactName = input.nextLine().trim();
-                        Contact foundContact = addressBook.searchName(contactName);
-                        if (foundContact == null) 
-                        {
-                            System.out.println("\nContact not found.");
-                        } 
-                        else 
-                        {
-                            System.out.print("Group name: ");
-                            String targetGroupName = input.nextLine().trim();
-                            boolean added = addressBook.addContactToGroup(foundContact, targetGroupName);
-                            System.out.println(added ? "\nAdded to group." : "\nAdd failed.");
-                        }
-                        break;
-                    }
-                    case "3": 
-                    {
-                        ArrayList<Group> allGroups = addressBook.getGroups();
-                        addressBookMenu.groupSummary(allGroups);
-                        break;
-                    }
-                    case "4": 
-                    {
-                        break;
-                    }
-                    default: 
-                    {
-                        System.out.println("\nInvalid choice.");
-                        break;
-                    }
-                }
+                    addressBookMenu.manageGroupsMenu();
 
-                AddressBookMenu.pause(input);
-                break;
+                    AddressBookMenu.pause(input);
+                    break;
                 }
 
                 case "6": 
