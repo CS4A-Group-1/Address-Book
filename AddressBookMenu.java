@@ -146,7 +146,11 @@ public class AddressBookMenu {
         Scanner in = new Scanner (System.in);
 
         do {
-            System.out.println("\n\n\n\n\n\nWhat would you like to do with this Contact?: ");
+            System.out.println("\n\n\n\n\n\n");
+            System.out.println(contact.toString());
+            // System.out.println("------------------\n");
+
+            System.out.println("What would you like to do with this Contact?: ");
             System.out.println(" 1.) Edit Contact ");
             System.out.println(" 2.) Remove Contact ");
             System.out.println(" 3.) Add or Remove Tag to Contact ");
@@ -304,10 +308,25 @@ public class AddressBookMenu {
             System.out.println("Type:\n 1.) Person\n 2.) Business\n 3.) Vendor\n 4.) Emergency\n ");
             String contactType = input.nextLine().trim();
 
-            this.displayFiltered(addressBook.filterByType(contactType));
+
+            if ("1".equals(choice)){
+                this.displayFiltered(addressBook.filterByType("Person"));
+
+            } else if("2".equals(choice)){
+                this.displayFiltered(addressBook.filterByType("Business"));
+
+            }else if("3".equals(choice)){
+                this.displayFiltered(addressBook.filterByType("Vendor"));
+
+            }else if("4".equals(choice)){
+                this.displayFiltered(addressBook.filterByType("Emergency"));
+
+            }else{
+                System.out.println("Invalid Choice, try again.");
+            }
 
         } else if ("2".equals(choice)) {
-            System.out.println("City: ");
+            System.out.println("City Name: ");
             String cityName = input.nextLine().trim();
 
             this.displayFiltered(addressBook.filterByCity(cityName));
