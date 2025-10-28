@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
@@ -31,7 +30,7 @@ public class Main {
             System.out.println("6. Reports");
             System.out.println("7. Exit");
             System.out.print("Enter choice: ");
-
+            choice = input.nextLine();
             //
 
             //Dont case by int, instead you should case by a string of the number. IE case: "1", case "2".

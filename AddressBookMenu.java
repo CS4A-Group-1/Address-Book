@@ -1,8 +1,8 @@
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Scanner;
 
 public class AddressBookMenu {
     AddressBook addressBook;
@@ -245,7 +245,6 @@ public class AddressBookMenu {
 
         }
 
-        input.close();
     }
 
     public void searchContactMenu() {
@@ -294,7 +293,6 @@ public class AddressBookMenu {
 
         }
 
-        input.close();
     }
 
 
@@ -332,7 +330,6 @@ public class AddressBookMenu {
             System.out.println("\nInvalid filter type.");
         }
 
-        input.close();
     }
 
     //Helper function for displayByFilter
@@ -389,9 +386,8 @@ public class AddressBookMenu {
         System.out.println("Nickname: ");
         nickname = input.nextLine();
         System.out.println("Birthday (DD/MM/YYYY): ");
-        name = input.nextLine();
-
         birthdayString = input.nextLine();
+        
         try {
             birthday = new SimpleDateFormat("dd/mm/yyyy").parse(birthdayString);
         }
@@ -484,9 +480,6 @@ public class AddressBookMenu {
         } else {
             System.out.println("Invalid input.");
         }
-
-        input.close();
-
         return contact;
     }
 
