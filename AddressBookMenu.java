@@ -145,13 +145,12 @@ public class AddressBookMenu {
         String choice = "0";
         Scanner in = new Scanner (System.in);
 
-        System.out.println("What would you like to do with this Contact?: ");
-        System.out.println(" 1.) Edit Contact ");
-        System.out.println(" 2.) Remove Contact ");
-        System.out.println(" 3.) Add or Remove Tag to Contact ");
-        System.out.println(" 4.) Back to previous menu ");
-       
         do {
+            System.out.println("\n\n\n\n\n\nWhat would you like to do with this Contact?: ");
+            System.out.println(" 1.) Edit Contact ");
+            System.out.println(" 2.) Remove Contact ");
+            System.out.println(" 3.) Add or Remove Tag to Contact ");
+            System.out.println(" 4.) Back to previous menu ");
             System.out.println("Enter choice: ");
             choice = in.nextLine();
 
@@ -301,19 +300,19 @@ public class AddressBookMenu {
 
         String choice = input.nextLine().trim();
 
-        if (choice == "1") {
+        if ("1".equals(choice)) {
             System.out.println("Type:\n 1.) Person\n 2.) Business\n 3.) Vendor\n 4.) Emergency\n ");
             String contactType = input.nextLine().trim();
 
             this.displayFiltered(addressBook.filterByType(contactType));
 
-        } else if (choice == "2") {
+        } else if ("2".equals(choice)) {
             System.out.println("City: ");
             String cityName = input.nextLine().trim();
 
             this.displayFiltered(addressBook.filterByCity(cityName));
 
-        } else if (choice == "3") {
+        } else if ("3".equals(choice)) {
             System.out.println("Enter tags separated by commas: ");
             String commaSeparatedTags = input.nextLine().trim();
 
@@ -321,7 +320,7 @@ public class AddressBookMenu {
             
             this.displayFiltered(addressBook.filterByTags(tags));
 
-        } else if(choice == "4"){
+        } else if("4".equals(choice)){
             //Do nothing and pass through
         } else {
             System.out.println("\nInvalid filter type.");
@@ -335,22 +334,23 @@ public class AddressBookMenu {
         System.out.println(" 1.) Create Group");
         System.out.println(" 2.) Add Contact to Group");
         System.out.println(" 3.) View all Group Summaries");
-        System.out.println(" 4.) Back to Main Menu");
+        System.out.println(" 4.) Remove a Contact from a Group");
+        System.out.println(" 5.) Delete a Group");
+        System.out.println(" 6.) Back to Main Menu");
         System.out.print("Enter choice: ");
 
         String groupMenuChoice = input.nextLine().trim();
-            switch (groupMenuChoice) 
-            {
-            case "1": 
-            {
+
+        switch (groupMenuChoice) {
+            case "1": {
                 System.out.print("\nGroup name: ");
                 String groupName = input.nextLine().trim();
                 boolean created = addressBook.createGroup(groupName);
                 System.out.println(created ? "\nGroup created." : "\nCreate Group failed.");
                 break;
             }
-            case "2": 
-            {
+
+            case "2": {
                 System.out.print("\nContact name: ");
                 String contactName = input.nextLine().trim();
                 Contact foundContact = addressBook.searchName(contactName);
@@ -367,19 +367,57 @@ public class AddressBookMenu {
                 }
                 break;
             }
-            case "3": 
-            {
+
+            case "3": {
                 ArrayList<Group> allGroups = addressBook.getGroups();
                 groupSummary(allGroups);
                 break;
             }
-            case "4": 
-            {
+
+            case "4": {
+                System.out.println("Enter Group Name: ");
+
+                Group foundGroup = addressBook.searchForGroupByName(input.nextLine().trim());
+
+                if(foundGroup != null){
+                    System.out.println("Enter Contact Name: ");
+                    Contact foundContact = foundGroup.findContactInGroup(input.nextLine().trim());
+
+                    if(foundContact != null){
+                        foundGroup.removeContact(foundContact);
+                        System.out.println("Remove Successful. ");
+                    }else{
+                        System.out.println("Contact not found.");
+                    }
+
+                }else{
+                    System.out.println("Group not found.");
+                }
                 break;
             }
+
+            case "5": {
+                System.out.println("Enter Group Name: ");
+                Group foundGroup = addressBook.searchForGroupByName(input.nextLine().trim());
+
+                if(foundGroup != null){
+                    addressBook.removeGroup(foundGroup);
+                    System.out.println("Remove Successful. ");
+
+                }else{
+                    System.out.println("Group not found.");
+                }
+                break;
+            }
+
+            case "6": {
+                break;
+            }
+
             default: 
             {
                 System.out.println("\nInvalid choice.");
+                // pause(input);
                 break;
             }
         }

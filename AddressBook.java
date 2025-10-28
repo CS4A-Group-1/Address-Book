@@ -124,7 +124,18 @@ public ArrayList<Contact> filterByTags(ArrayList<String> tags) { // filtering by
         return false; //group not found
     }
 
+    public Group searchForGroupByName(String groupName){
+        for (Group g : groups){
+            if(g.getGroupName().equalsIgnoreCase(groupName)){
+                return g;
+            }
+        }
+        return null;
+    }
 
+    public boolean removeGroup(Group group){
+        return groups.remove(group);
+    }
 
 
 }
