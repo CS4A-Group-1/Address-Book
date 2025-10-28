@@ -150,12 +150,11 @@ public class AddressBookMenu {
         System.out.println(" 2.) Remove Contact ");
         System.out.println(" 3.) Add or Remove Tag to Contact ");
         System.out.println(" 4.) Back to previous menu ");
-        System.out.print("Enter choice: ");
-
-        choice = in.toString();
-        in.nextLine();
-
+       
         do {
+            System.out.println("Enter choice: ");
+            choice = in.nextLine();
+
             switch (choice) {
                 case "1": //editing contact
                     System.out.print("Enter new name: ");
@@ -187,18 +186,16 @@ public class AddressBookMenu {
                     break;
 
                  case "4": //exit to main menu
-
-                 System.out.println("Exiting...\n");
-
+                    System.out.println("Exiting...\n");
                     break;
             
                 default:
-                    System.out.println("Invalid choice.\n");
+                    System.out.println("Invalid choice, Please try again.\n");
                     break;
             }
+
         } while (choice != "4");
 
-        in.close();
     }
 
 
