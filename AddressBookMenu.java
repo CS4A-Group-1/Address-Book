@@ -148,7 +148,7 @@ public class AddressBookMenu {
         do {
             System.out.println("\n\n\n\n\n\n");
             System.out.println(contact.toString());
-            // System.out.println("------------------\n");
+            System.out.println("------------------\n");
 
             System.out.println("What would you like to do with this Contact?: ");
             System.out.println(" 1.) Edit Contact ");
@@ -499,7 +499,7 @@ public class AddressBookMenu {
         birthdayString = input.nextLine();
         
         try {
-            birthday = new SimpleDateFormat("dd/mm/yyyy").parse(birthdayString);
+            birthday = new SimpleDateFormat("dd/MM/yyyy").parse(birthdayString);
         }
         catch (ParseException ex) {
             System.out.println("Incorrect date format, setting birthday to default.");
